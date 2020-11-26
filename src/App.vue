@@ -1,15 +1,18 @@
 <template>
-  <div>
+  <div class="app">
     <ControlPanel></ControlPanel>
+    <PlayingArea></PlayingArea>
   </div>
 </template>
 
 <script>
-import ControlPanel from './components/ControlPanel'
+import ControlPanel from './components/ControlPanel.vue'
+import PlayingArea from './components/PlayingArea.vue'
 export default {
   name: 'App',
   components: {
-    ControlPanel
+    ControlPanel,
+    PlayingArea
   }
 }
 </script>
