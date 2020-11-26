@@ -2,10 +2,10 @@
   <div class="control-panel">
     <div class="control-panel__objects-records">
       <p>Total weight:
-        <span>78</span>
+        <span>{{ totalPlacedObjectsWeight }}</span>
       </p>
       <p>Momentum:
-        <span>6</span>
+        <span>0</span>
       </p>
     </div>
     <div class="control-panel__buttons">
@@ -14,17 +14,27 @@
     </div>
     <div class="control-panel__objects-records">
       <p>Total weight:
-        <span>45</span>
+        <span>{{ totalRandomlyPlacedObjectsWeight }}</span>
       </p>
       <p>Momentum:
-        <span>2</span>
+        <span>0</span>
       </p>
     </div>
   </div>
 </template>
 
 <script>
+import { mapState, mapGetters } from 'vuex'
 export default {
-  name: 'ControlPanel'
+  name: 'ControlPanel',
+  computed: {
+    ...mapState([
+      'fallingObjects'
+    ]),
+    ...mapGetters([
+      'totalPlacedObjectsWeight',
+      'totalRandomlyPlacedObjectsWeight'
+    ])
+  }
 }
 </script>

@@ -1,9 +1,18 @@
 <template>
-  <div class="object"></div>
+  <div
+    class="object"
+    :style="{ transform: `translateY(${ onBoard ? -100 : 0 }%)` }"
+  />
 </template>
 
 <script>
 export default {
-  name: 'Object'
+  name: 'Object',
+  props: {
+    onBoard: {
+      type: Boolean,
+      default: false
+    }
+  }
 }
 </script>
