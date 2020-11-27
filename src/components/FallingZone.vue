@@ -11,7 +11,7 @@
 
 <script>
 import { mapGetters, mapMutations, mapState } from 'vuex'
-import { BOARD_HEIGHT, BOARD_WIDTH } from '@/constants'
+import { BOARD_HEIGHT, BOARD_WIDTH, LEFT_ARROW_KEY, RIGHT_ARROW_KEY } from '@/constants'
 import Object from './Object.vue'
 
 export default {
@@ -32,7 +32,8 @@ export default {
       'fallingInterval'
     ]),
     ...mapGetters([
-      'boardBendingAngle'
+      'boardBendingAngle',
+      'isBoardAngleWithinLimits'
     ]),
     fallingObjectEl () {
       const id = this.fallingObjects[0].id
@@ -42,7 +43,6 @@ export default {
   watch: {
     isGamePaused (isPaused) {
       if (isPaused) {
-        console.log('paused')
         clearInterval(this.intervalId)
       } else {
         this.getObjectBottomLimit()
@@ -54,8 +54,11 @@ export default {
     ...mapMutations([
       'createObject',
       'addPlacedObject',
-      'updateFallingInterval'
+      'updateFallingInterval',
+      'toggleGamePlay',
+      'moveObject'
     ]),
+
     animateFallingObject () {
       this.intervalId = setInterval(() => {
         if (this.fallingObjects[0].top >= this.objectBottomLimit) {
@@ -70,7 +73,6 @@ export default {
         } else {
           this.fallingObjects[0].top += 1
           this.fallingObjectEl.style.top = `${this.fallingObjects[0].top}px`
-          console.log('aminssdf')
         }
       }, this.fallingInterval)
     },
@@ -80,8 +82,6 @@ export default {
       const panelBounds = document.querySelector('.control-panel').getBoundingClientRect()
       const objectBounds = this.fallingObjectEl.getBoundingClientRect()
 
-      console.log('true')
-
       // Similarity of triangles
       const totterCathet = boardBounds.bottom - boardBounds.top - BOARD_HEIGHT
       const similarCathet = (this.fallingObjects[0].position * totterCathet) / BOARD_WIDTH
@@ -89,7 +89,46 @@ export default {
       this.objectBottomLimit = this.boardBendingAngle >= 0
         ? boardBounds.top + similarCathet - objectBounds.height - panelBounds.height
         : boardBounds.bottom - similarCathet - objectBounds.height - panelBounds.height
+    },
+
+    handleBoardTransitionEnd () {
+      if (this.isGamePaused) return
+
+      if (this.isBoardAngleWithinLimits) {
+        this.getObjectBottomLimit()
+      } else {
+        this.toggleGamePlay()
+        // this.toggleModal(true)
+      }
+    },
+
+    moveFallingObject ({ keyCode }) {
+      const isArrowKeyPressed = [LEFT_ARROW_KEY, RIGHT_ARROW_KEY].includes(keyCode)
+
+      if (this.isGamePaused || !isArrowKeyPressed) return
+
+      const objectWidth = this.fallingObjectEl.getBoundingClientRect().width
+      const areaWidth = document.querySelector('.falling-zone').getBoundingClientRect().width
+
+      this.moveObject({
+        moveLeft: keyCode === LEFT_ARROW_KEY,
+        width: (objectWidth / areaWidth) * 100
+      })
+
+      this.$nextTick(this.getObjectBottomLimit)
     }
+  },
+
+  mounted () {
+    const boardEl = document.querySelector('.teeter-totter__board')
+
+    boardEl.addEventListener('transitionend', this.handleBoardTransitionEnd)
+    window.addEventListener('keydown', this.moveFallingObject)
+
+    this.$once('hook:beforeDestroy', () => {
+      boardEl.removeEventListener('transitionend', this.handleBoardTransitionEnd)
+      window.removeEventListener('keydown', this.moveFallingObject)
+    })
   }
 }
 </script>

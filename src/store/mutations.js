@@ -32,5 +32,16 @@ export default {
     } else if (state.fallingInterval > MIN_FALLING_INTERVAL) {
       state.fallingInterval--
     }
+  },
+
+  moveObject ({ fallingObjects }, { moveLeft, width }) {
+    const object = fallingObjects[0]
+    console.log('true')
+
+    const canMoveLeft = object.position - 1 >= 0
+    const canMoveRight = object.position + width + 1 <= 45
+
+    if (moveLeft) canMoveLeft && object.position--
+    else canMoveRight && object.position++
   }
 }
