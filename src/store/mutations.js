@@ -10,9 +10,10 @@ export default {
     const color = getRandomColor()
     const position = getRandomPosition(BOARD_WIDTH)
     const id = generateId.next().value
-    const scale = 1 + SCALE_FACTOR * weight
+    const scale = 1 + (SCALE_FACTOR * weight)
+    const parsedScale = parseFloat(scale.toFixed(2))
 
-    const object = { shape, weight, position, color, id, scale }
+    const object = { shape, weight, position, color, id, scale: parsedScale }
 
     randomlyPlaced ? randomlyPlacedObjects.push(object) : fallingObjects.push(object)
   }
