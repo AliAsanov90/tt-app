@@ -5,7 +5,7 @@
         <span>{{ totalPlacedObjectsWeight }}</span>
       </p>
       <p>Momentum:
-        <span>0</span>
+        <span>{{ totalPlacedObjectsMomentum }}</span>
       </p>
     </div>
     <div class="control-panel__buttons">
@@ -17,23 +17,22 @@
         <span>{{ totalRandomlyPlacedObjectsWeight }}</span>
       </p>
       <p>Momentum:
-        <span>0</span>
+        <span>{{ totalRandomlyPlacedObjectsMomentum }}</span>
       </p>
     </div>
   </div>
 </template>
 
 <script>
-import { mapState, mapGetters } from 'vuex'
+import { mapGetters } from 'vuex'
 export default {
   name: 'ControlPanel',
   computed: {
-    ...mapState([
-      'fallingObjects'
-    ]),
     ...mapGetters([
       'totalPlacedObjectsWeight',
-      'totalRandomlyPlacedObjectsWeight'
+      'totalRandomlyPlacedObjectsWeight',
+      'totalPlacedObjectsMomentum',
+      'totalRandomlyPlacedObjectsMomentum'
     ])
   }
 }

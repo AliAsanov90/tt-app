@@ -5,3 +5,5 @@ export const SHAPES = ['triangle', 'circle', 'square']
 
 export const BOARD_WIDTH = 10
 export const BOARD_HEIGHT = 7
+
+export const SCALE_FACTOR = 0.1

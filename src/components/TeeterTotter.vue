@@ -7,6 +7,7 @@
       <Object
         v-for="obj in randomlyPlacedObjects"
         :key="obj.id"
+        :object="obj"
         onBoard
       />
     </div>

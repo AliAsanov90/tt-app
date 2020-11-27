@@ -3,6 +3,7 @@
     <Object
       v-for="obj in fallingObjects"
       :key="obj.id"
+      :object="obj"
     />
   </div>
 </template>

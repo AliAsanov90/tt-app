@@ -1,4 +1,27 @@
-// .object
-//   width: 100px
-//   height: 100px
-//   background-color: blue
+.object
+  display: flex
+  justify-content: center
+  align-items: center
+  font-family: Arial, Helvetica, sans-serif
+  font-size: 10px
+  font-weight: 700
+  color: #eaeaea
+
+  &.square
+  &.circle
+    width: 2rem
+    height: 2rem
+
+  &.circle
+    border-radius: 50%
+
+  &.triangle
+    width: 0
+    height: 0
+    border-left: 1.5rem solid transparent
+    border-right: 1.5rem solid transparent
+    border-bottom: 2rem solid
+
+    & .object__weight
+      position: absolute
+      top: calc(100% + .9rem)
