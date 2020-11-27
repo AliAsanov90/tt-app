@@ -1,4 +1,5 @@
 import { calculateTotal } from '../utils'
+import { MAX_BENDING_ANGLE, MIN_BENDING_ANGLE } from '@/constants'
 
 export default {
   totalPlacedObjectsWeight: ({ placedObjects }) => {
@@ -19,8 +20,26 @@ export default {
   totalRandomlyPlacedObjectsMomentum: ({ randomlyPlacedObjects }) => {
     const momentums = randomlyPlacedObjects.map(obj => obj.weight * obj.position)
     return calculateTotal(momentums)
-  }
+  },
 
-  // boardBendingAngle
-  // isBendingAngleWithinLimits
+  boardBendingAngle (state, { totalPlacedObjectsMomentum, totalRandomlyPlacedObjectsMomentum }) {
+    let angle = 0
+
+    if (!totalPlacedObjectsMomentum) {
+      angle = MAX_BENDING_ANGLE
+    } else {
+      const difference = Math.abs(totalPlacedObjectsMomentum - totalRandomlyPlacedObjectsMomentum)
+
+      angle = totalPlacedObjectsMomentum > totalRandomlyPlacedObjectsMomentum
+        ? difference / totalPlacedObjectsMomentum * -50
+        : difference / totalRandomlyPlacedObjectsMomentum * 50
+    }
+
+    return angle
+  },
+
+  isBoardAngleWithinLimits (state, { boardBendingAngle }) {
+    return boardBendingAngle > MIN_BENDING_ANGLE &&
+      boardBendingAngle < MAX_BENDING_ANGLE
+  }
 }

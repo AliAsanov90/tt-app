@@ -9,7 +9,11 @@
       </p>
     </div>
     <div class="control-panel__buttons">
-      <button>Play</button>
+      <button
+        @click="toggleGamePlay"
+      >
+        Play
+      </button>
       <button>Reset</button>
     </div>
     <div class="control-panel__objects-records">
@@ -24,7 +28,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapMutations } from 'vuex'
 export default {
   name: 'ControlPanel',
   computed: {
@@ -33,6 +37,11 @@ export default {
       'totalRandomlyPlacedObjectsWeight',
       'totalPlacedObjectsMomentum',
       'totalRandomlyPlacedObjectsMomentum'
+    ])
+  },
+  methods: {
+    ...mapMutations([
+      'toggleGamePlay'
     ])
   }
 }

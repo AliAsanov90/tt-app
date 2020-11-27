@@ -3,5 +3,7 @@ export default {
   placedObjects: [],
   randomlyPlacedObjects: [],
 
-  isGamePaused: false
+  isGamePaused: true,
+
+  fallingInterval: null
 }

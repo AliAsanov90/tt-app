@@ -7,3 +7,9 @@ export const BOARD_WIDTH = 10
 export const BOARD_HEIGHT = 7
 
 export const SCALE_FACTOR = 0.1
+
+export const MAX_FALLING_INTERVAL = 10
+export const MIN_FALLING_INTERVAL = 1
+
+export const MAX_BENDING_ANGLE = 30
+export const MIN_BENDING_ANGLE = -30

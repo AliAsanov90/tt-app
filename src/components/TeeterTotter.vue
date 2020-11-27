@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapGetters, mapMutations } from 'vuex'
 import { BOARD_HEIGHT } from '@/constants'
 import Object from './Object'
 
@@ -40,11 +40,29 @@ export default {
       'placedObjects',
       'randomlyPlacedObjects'
     ]),
+    ...mapGetters([
+      'isBoardAngleWithinLimits'
+    ]),
     boardStyles () {
       return {
         height: `${BOARD_HEIGHT}px`
       }
+    },
+    boardObjectsDiff () {
+      return this.placedObjects.length - this.randomlyPlacedObjects.length
     }
+  },
+  watch: {
+    boardObjectsDiff (current) {
+      if (current && this.isBoardAngleWithinLimits) {
+        this.createObject(true)
+      }
+    }
+  },
+  methods: {
+    ...mapMutations([
+      'createObject'
+    ])
   }
 }
 </script>
