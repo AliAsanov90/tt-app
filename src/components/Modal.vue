@@ -14,13 +14,6 @@
           <v-btn
             color="green darken-1"
             text
-            @click="toggleModal"
-          >
-            Close
-          </v-btn>
-          <v-btn
-            color="green darken-1"
-            text
             @click="startNewGame"
           >
             New Game
@@ -31,7 +24,7 @@
 </template>
 
 <script>
-import { mapActions, mapMutations, mapState } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 export default {
   name: 'Modal',
   computed: {
@@ -42,10 +35,6 @@ export default {
   methods: {
     ...mapActions([
       'startNewGame'
-    ]),
-
-    ...mapMutations([
-      'toggleModal'
     ])
   }
 }

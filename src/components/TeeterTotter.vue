@@ -84,7 +84,7 @@ export default {
     },
     boardBendingAngle (currentAngle, previousAngle) {
       const bendingAngleChange = Math.abs(Math.round(currentAngle - previousAngle))
-      this.boardBendingDuration = this.bendingDurations[bendingAngleChange] || 1
+      this.boardBendingDuration = this.bendingDurations[bendingAngleChange] || 20
     }
   },
   methods: {
