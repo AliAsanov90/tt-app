@@ -25,6 +25,7 @@
 
 <script>
 import { mapActions, mapState } from 'vuex'
+
 export default {
   name: 'Modal',
   computed: {
@@ -32,6 +33,7 @@ export default {
       'isModalOpen'
     ])
   },
+
   methods: {
     ...mapActions([
       'startNewGame'

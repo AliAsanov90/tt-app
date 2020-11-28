@@ -1,7 +1,18 @@
-// import { getRandomNumber, getRandomPosition, getRandomColor, generateId } from '@/utils'
-import { getRandomNumber, getRandomColor, generateId, parseNumber } from '@/utils'
-// import { MIN_OBJECT_WEIGHT, MAX_OBJECT_WEIGHT, SHAPES, BOARD_WIDTH, SCALE_FACTOR, MAX_FALLING_INTERVAL, MIN_FALLING_INTERVAL } from '@/constants'
-import { MIN_OBJECT_WEIGHT, MAX_OBJECT_WEIGHT, SHAPES, SCALE_FACTOR, MAX_FALLING_INTERVAL, MIN_FALLING_INTERVAL } from '@/constants'
+import {
+  getRandomNumber,
+  getRandomColor,
+  generateId,
+  parseNumber
+} from '@/utils'
+
+import {
+  MIN_OBJECT_WEIGHT,
+  MAX_OBJECT_WEIGHT,
+  SHAPES,
+  SCALE_FACTOR,
+  MAX_FALLING_INTERVAL,
+  MIN_FALLING_INTERVAL
+} from '@/constants'
 
 export default {
 

@@ -19,12 +19,14 @@ export default {
   components: {
     Object
   },
+
   data () {
     return {
       intervalId: null,
       objectBottomLimit: null
     }
   },
+
   computed: {
     ...mapState([
       'fallingObjects',

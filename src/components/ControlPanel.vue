@@ -45,7 +45,8 @@ export default {
   name: 'ControlPanel',
   computed: {
     ...mapState([
-      'isGamePaused'
+      'isGamePaused',
+      'isModalOpen'
     ]),
 
     ...mapGetters([
@@ -67,12 +68,16 @@ export default {
     handleSpaceClick (event) {
       event.preventDefault()
 
-      if (event.keyCode === SPACE_KEY) this.toggleGamePlay()
+      if (event.keyCode === SPACE_KEY && !this.isModalOpen) {
+        this.toggleGamePlay()
+      }
     }
   },
+
   created () {
     window.addEventListener('keydown', this.handleSpaceClick)
   },
+
   beforeDestroy () {
     window.removeEventListener('keydown', this.handleSpaceClick)
   }

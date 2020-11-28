@@ -82,11 +82,13 @@ export default {
         this.createObject(true)
       }
     },
+
     boardBendingAngle (currentAngle, previousAngle) {
       const bendingAngleChange = Math.abs(Math.round(currentAngle - previousAngle))
       this.boardBendingDuration = this.bendingDurations[bendingAngleChange] || 20
     }
   },
+
   methods: {
     ...mapMutations([
       'createObject'

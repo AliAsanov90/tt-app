@@ -1,8 +1,15 @@
-// import { calculateTotal, parseNumber, roundNumber } from '../utils'
-import { calculateTotal, parseNumber } from '../utils'
-import { MAX_BENDING_ANGLE, MIN_BENDING_ANGLE, BOARD_FACTOR, BOARD_CENTER, MAX_MOMENTUM_DIFFERENCE } from '@/constants'
+import { calculateTotal, parseNumber } from '@/utils'
+
+import {
+  MAX_BENDING_ANGLE,
+  MIN_BENDING_ANGLE,
+  BOARD_FACTOR,
+  BOARD_CENTER,
+  MAX_MOMENTUM_DIFFERENCE
+} from '@/constants'
 
 export default {
+
   totalPlacedObjectsWeight: ({ placedObjects }) => {
     const weights = placedObjects.map(obj => obj.weight)
     return calculateTotal(weights)
@@ -20,10 +27,7 @@ export default {
     })
 
     const totalMomentums = calculateTotal(momentums)
-    // return roundNumber(totalMomentums)
     return parseNumber(totalMomentums, 1)
-
-    // return totalMomentums
   },
 
   totalRandomlyPlacedObjectsMomentum: ({ randomlyPlacedObjects }) => {
@@ -33,10 +37,7 @@ export default {
     })
 
     const totalMomentums = calculateTotal(momentums)
-    // return roundNumber(totalMomentums)
     return parseNumber(totalMomentums, 1)
-
-    // return totalMomentums
   },
 
   objectsMomentumDifference: (state, { totalPlacedObjectsMomentum, totalRandomlyPlacedObjectsMomentum }) => {
@@ -60,7 +61,6 @@ export default {
         : difference / totalRandomlyPlacedObjectsMomentum * 50
     }
 
-    // return parseNumber(angle, 1)
     return angle
   },
 

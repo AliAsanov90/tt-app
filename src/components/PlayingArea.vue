@@ -16,11 +16,13 @@ export default {
     FallingZone,
     TeeterTotter
   },
+
   methods: {
     ...mapActions([
       'startNewGame'
     ])
   },
+
   mounted () {
     this.startNewGame()
   }

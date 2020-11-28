@@ -1,4 +1,5 @@
 export default {
+
   startNewGame: ({ commit, state }) => {
     if (!state.isGamePaused) commit('toggleGamePlay')
     if (state.isModalOpen) commit('toggleModal')
