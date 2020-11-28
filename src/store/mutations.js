@@ -1,17 +1,19 @@
-import { getRandomNumber, getRandomPosition, getRandomColor, generateId } from '@/utils'
-import { MIN_OBJECT_WEIGHT, MAX_OBJECT_WEIGHT, SHAPES, BOARD_WIDTH, SCALE_FACTOR, MAX_FALLING_INTERVAL, MIN_FALLING_INTERVAL } from '@/constants'
+// import { getRandomNumber, getRandomPosition, getRandomColor, generateId } from '@/utils'
+import { getRandomNumber, getRandomColor, generateId, parseNumber } from '@/utils'
+// import { MIN_OBJECT_WEIGHT, MAX_OBJECT_WEIGHT, SHAPES, BOARD_WIDTH, SCALE_FACTOR, MAX_FALLING_INTERVAL, MIN_FALLING_INTERVAL } from '@/constants'
+import { MIN_OBJECT_WEIGHT, MAX_OBJECT_WEIGHT, SHAPES, SCALE_FACTOR, MAX_FALLING_INTERVAL, MIN_FALLING_INTERVAL } from '@/constants'
 
 export default {
 
-  createObject: ({ fallingObjects, randomlyPlacedObjects }, randomlyPlaced = false) => {
+  createObject ({ fallingObjects, randomlyPlacedObjects }, randomlyPlaced = false) {
     const shape = SHAPES[getRandomNumber(0, 2)]
     const weight = getRandomNumber(MIN_OBJECT_WEIGHT, MAX_OBJECT_WEIGHT - 1)
     const color = getRandomColor()
-    const position = getRandomPosition(BOARD_WIDTH)
+    const position = getRandomNumber(0, 40)
     const top = 0
     const id = generateId.next().value
     const scale = 1 + (SCALE_FACTOR * weight)
-    const parsedScale = parseFloat(scale.toFixed(2))
+    const parsedScale = parseNumber(scale, 2)
 
     const object = { shape, weight, position, top, color, id, scale: parsedScale }
 
@@ -43,5 +45,11 @@ export default {
 
     if (moveLeft) canMoveLeft && object.position--
     else canMoveRight && object.position++
+  },
+
+  emptyObjectsArrays (state) {
+    state.fallingObjects = []
+    state.placedObjects = []
+    state.randomlyPlacedObjects = []
   }
 }

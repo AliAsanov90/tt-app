@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import { BOARD_WIDTH } from '@/constants'
+// import { BOARD_WIDTH } from '@/constants'
 export default {
   name: 'Object',
   props: {
@@ -34,14 +34,14 @@ export default {
   computed: {
     objectLeftPosition () {
       const { position } = this.object
-      const boardCenter = BOARD_WIDTH / 2
-      const stepPercentage = 100 / BOARD_WIDTH
-      const randomlyPlacedPosition = (boardCenter + position) * stepPercentage
-      const placedPosition = (boardCenter - position) * stepPercentage
+      // const boardCenter = BOARD_WIDTH / 2
+      // const stepPercentage = 100 / BOARD_WIDTH
+      // const randomlyPlacedPosition = (boardCenter + position) * stepPercentage
+      // const placedPosition = (boardCenter - position) * stepPercentage
 
       return this.randomlyPlaced
-        ? `calc(${randomlyPlacedPosition}% - ${this.correction}px)`
-        : `${placedPosition}%`
+        ? `calc(${60 + position}% - ${this.correction}px)`
+        : `${position}%`
     },
     objectStyles () {
       const { shape, color, scale } = this.object
@@ -71,7 +71,7 @@ export default {
   methods: {
     correctRandomlyPlacedPosition (position) {
       const { width } = this.$el.getBoundingClientRect()
-      if (this.randomlyPlaced && position === 5) this.correction = width
+      if (this.randomlyPlaced && position > 35) this.correction = width
     }
   },
   mounted () {

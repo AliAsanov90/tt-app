@@ -14,7 +14,11 @@
       >
         Play
       </button>
-      <button>Reset</button>
+      <button
+        @click="startNewGame"
+      >
+        Reset
+      </button>
     </div>
     <div class="control-panel__objects-records">
       <p>Total weight:
@@ -28,7 +32,8 @@
 </template>
 
 <script>
-import { mapGetters, mapMutations } from 'vuex'
+import { mapActions, mapGetters, mapMutations } from 'vuex'
+import { SPACE_KEY } from '@/constants'
 export default {
   name: 'ControlPanel',
   computed: {
@@ -40,9 +45,25 @@ export default {
     ])
   },
   methods: {
+    ...mapActions([
+      'startNewGame'
+    ]),
+
     ...mapMutations([
       'toggleGamePlay'
-    ])
+    ]),
+
+    handleSpaceClick (event) {
+      event.preventDefault()
+
+      if (event.keyCode === SPACE_KEY) this.toggleGamePlay()
+    }
+  },
+  created () {
+    window.addEventListener('keydown', this.handleSpaceClick)
+  },
+  beforeDestroy () {
+    window.removeEventListener('keydown', this.handleSpaceClick)
   }
 }
 </script>

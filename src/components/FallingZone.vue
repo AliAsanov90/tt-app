@@ -11,7 +11,7 @@
 
 <script>
 import { mapGetters, mapMutations, mapState } from 'vuex'
-import { BOARD_HEIGHT, BOARD_WIDTH, LEFT_ARROW_KEY, RIGHT_ARROW_KEY } from '@/constants'
+import { BOARD_HEIGHT, BOARD_STEPS, LEFT_ARROW_KEY, RIGHT_ARROW_KEY } from '@/constants'
 import Object from './Object.vue'
 
 export default {
@@ -31,15 +31,19 @@ export default {
       'isGamePaused',
       'fallingInterval'
     ]),
+
     ...mapGetters([
       'boardBendingAngle',
-      'isBoardAngleWithinLimits'
+      'isBoardAngleWithinLimits',
+      'isMomentumDiffWithinLimit'
     ]),
+
     fallingObjectEl () {
       const id = this.fallingObjects[0].id
       return document.getElementById(`falling-object-${id}`)
     }
   },
+
   watch: {
     isGamePaused (isPaused) {
       if (isPaused) {
@@ -50,6 +54,7 @@ export default {
       }
     }
   },
+
   methods: {
     ...mapMutations([
       'createObject',
@@ -84,7 +89,7 @@ export default {
 
       // Similarity of triangles
       const totterCathet = boardBounds.bottom - boardBounds.top - BOARD_HEIGHT
-      const similarCathet = (this.fallingObjects[0].position * totterCathet) / BOARD_WIDTH
+      const similarCathet = (this.fallingObjects[0].position * totterCathet) / BOARD_STEPS
 
       this.objectBottomLimit = this.boardBendingAngle >= 0
         ? boardBounds.top + similarCathet - objectBounds.height - panelBounds.height
@@ -94,7 +99,7 @@ export default {
     handleBoardTransitionEnd () {
       if (this.isGamePaused) return
 
-      if (this.isBoardAngleWithinLimits) {
+      if (this.isMomentumDiffWithinLimit && this.isBoardAngleWithinLimits) {
         this.getObjectBottomLimit()
       } else {
         this.toggleGamePlay()

@@ -1,5 +1,5 @@
-import { calculateTotal } from '../utils'
-import { MAX_BENDING_ANGLE, MIN_BENDING_ANGLE } from '@/constants'
+import { calculateTotal, parseNumber, roundNumber } from '../utils'
+import { MAX_BENDING_ANGLE, MIN_BENDING_ANGLE, BOARD_FACTOR, BOARD_CENTER, MAX_MOMENTUM_DIFFERENCE } from '@/constants'
 
 export default {
   totalPlacedObjectsWeight: ({ placedObjects }) => {
@@ -13,13 +13,31 @@ export default {
   },
 
   totalPlacedObjectsMomentum: ({ placedObjects }) => {
-    const momentums = placedObjects.map(obj => obj.weight * obj.position)
-    return calculateTotal(momentums)
+    const momentums = placedObjects.map(obj => {
+      const objDistanceFromCenter = (BOARD_CENTER - obj.position) / BOARD_FACTOR
+      return obj.weight * objDistanceFromCenter
+    })
+
+    const totalMomentums = calculateTotal(momentums)
+    return roundNumber(totalMomentums)
   },
 
   totalRandomlyPlacedObjectsMomentum: ({ randomlyPlacedObjects }) => {
-    const momentums = randomlyPlacedObjects.map(obj => obj.weight * obj.position)
-    return calculateTotal(momentums)
+    const momentums = randomlyPlacedObjects.map(obj => {
+      const objDistanceFromCenter = (10 + obj.position) / BOARD_FACTOR
+      return obj.weight * objDistanceFromCenter
+    })
+
+    const totalMomentums = calculateTotal(momentums)
+    return roundNumber(totalMomentums)
+  },
+
+  objectsMomentumDifference: (state, { totalPlacedObjectsMomentum, totalRandomlyPlacedObjectsMomentum }) => {
+    return Math.abs(totalPlacedObjectsMomentum - totalRandomlyPlacedObjectsMomentum)
+  },
+
+  isMomentumDiffWithinLimit: (state, { objectsMomentumDifference }) => {
+    return objectsMomentumDifference < MAX_MOMENTUM_DIFFERENCE
   },
 
   boardBendingAngle (state, { totalPlacedObjectsMomentum, totalRandomlyPlacedObjectsMomentum }) {
@@ -35,7 +53,7 @@ export default {
         : difference / totalRandomlyPlacedObjectsMomentum * 50
     }
 
-    return angle
+    return parseNumber(angle, 1)
   },
 
   isBoardAngleWithinLimits (state, { boardBendingAngle }) {

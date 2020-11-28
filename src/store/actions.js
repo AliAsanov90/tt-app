@@ -1,5 +1,8 @@
 export default {
-  startNewGame: ({ commit, state }, payload) => {
+  startNewGame: ({ commit, state }) => {
+    if (!state.isGamePaused) commit('toggleGamePlay')
+
+    commit('emptyObjectsArrays')
     commit('updateFallingInterval', true)
 
     commit('createObject')
