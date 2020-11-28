@@ -9,16 +9,23 @@
       </p>
     </div>
     <div class="control-panel__buttons">
-      <button
+      <v-btn
+        class="control-panel__button"
+        color="blue-grey"
+        x-large
+        dark
         @click="toggleGamePlay"
       >
-        Play
-      </button>
-      <button
+        <v-icon> {{ isGamePaused ? 'mdi-play' : 'mdi-pause' }} </v-icon>
+      </v-btn>
+      <v-btn
+        class="control-panel__button"
+        x-large
+        dark
         @click="startNewGame"
       >
-        Reset
-      </button>
+        <v-icon>mdi-autorenew</v-icon>
+      </v-btn>
     </div>
     <div class="control-panel__objects-records">
       <p>Total weight:
@@ -32,11 +39,15 @@
 </template>
 
 <script>
-import { mapActions, mapGetters, mapMutations } from 'vuex'
+import { mapState, mapActions, mapGetters, mapMutations } from 'vuex'
 import { SPACE_KEY } from '@/constants'
 export default {
   name: 'ControlPanel',
   computed: {
+    ...mapState([
+      'isGamePaused'
+    ]),
+
     ...mapGetters([
       'totalPlacedObjectsWeight',
       'totalRandomlyPlacedObjectsWeight',

@@ -61,6 +61,7 @@ export default {
       'addPlacedObject',
       'updateFallingInterval',
       'toggleGamePlay',
+      'toggleModal',
       'moveObject'
     ]),
 
@@ -103,7 +104,7 @@ export default {
         this.getObjectBottomLimit()
       } else {
         this.toggleGamePlay()
-        // this.toggleModal(true)
+        this.toggleModal()
       }
     },
 

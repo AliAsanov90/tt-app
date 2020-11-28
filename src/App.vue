@@ -1,18 +1,21 @@
 <template>
-  <div class="app">
+  <v-app class="app">
     <ControlPanel></ControlPanel>
     <PlayingArea></PlayingArea>
-  </div>
+    <Modal></Modal>
+  </v-app>
 </template>
 
 <script>
-import ControlPanel from './components/ControlPanel.vue'
-import PlayingArea from './components/PlayingArea.vue'
+import ControlPanel from '@/components/ControlPanel.vue'
+import PlayingArea from '@/components/PlayingArea.vue'
+import Modal from '@/components/Modal.vue'
 export default {
   name: 'App',
   components: {
     ControlPanel,
-    PlayingArea
+    PlayingArea,
+    Modal
   }
 }
 </script>

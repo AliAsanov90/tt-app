@@ -24,6 +24,10 @@ export default {
     state.isGamePaused = !state.isGamePaused
   },
 
+  toggleModal (state) {
+    state.isModalOpen = !state.isModalOpen
+  },
+
   addPlacedObject (state, object = {}) {
     state.placedObjects.push(object)
   },

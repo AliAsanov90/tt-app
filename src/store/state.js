@@ -4,6 +4,7 @@ export default {
   randomlyPlacedObjects: [],
 
   isGamePaused: true,
+  isModalOpen: true,
 
   fallingInterval: null
 }
